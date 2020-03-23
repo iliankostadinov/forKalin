@@ -36,13 +36,14 @@ class One_Line(object):
         self.imp_field.delete(0, "end")
         return False
 
+all_lines = [("fir_line", 0), ("sec_line",1), ("thrid_line", 2), ("four_l", 3), ("five", 4), ("six", 5), ("sev", 6), ("eight", 7), ("nine", 8), ("ten", 9)]
+for name,num in all_lines:
+    name = One_Line(num)
+    CHECK_BUT = tk.Button(One_Line.ROOT_WIN, text="ПРОВЕРИ", command=name.check)
+    CHECK_BUT.grid(row=num, column=5)
 
-first_line = One_Line(0)
-CHECK_BUT = tk.Button(One_Line.ROOT_WIN, text="ПРОВЕРИ", command=first_line.check)
-CHECK_BUT.grid(row=0, column=5)
-
-second_line =One_Line(1)
-CHECK_BUT = tk.Button(One_Line.ROOT_WIN, text="ПРОВЕРИ", command=second_line.check)
-CHECK_BUT.grid(row=1, column=5)
+#second_line =One_Line(1)
+#CHECK_BUT = tk.Button(One_Line.ROOT_WIN, text="ПРОВЕРИ", command=second_line.check)
+#CHECK_BUT.grid(row=1, column=5)
 
 One_Line.ROOT_WIN.mainloop()
