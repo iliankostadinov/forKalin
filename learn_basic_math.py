@@ -4,29 +4,26 @@
 import tkinter as tk
 import random
 
-class One_Line(object):
-    ROOT_WIN = tk.Tk()
-    ROOT_WIN.title("Задачи за Калин")
+class OneLine():
+    """Visualize one line for sum of two numbers"""
 
-    def __init__(self, row_num=0):
+    def __init__(self, window, row_num=0):
         self.first_num = random.randint(1, 10)
         self.second_num = random.randint(1, 10)
-        print("First num %d" % self.first_num)
-        print("Second num %d" % self.second_num)
-        self.num1 = tk.Label(One_Line.ROOT_WIN, text=self.first_num)
+        self.num1 = tk.Label(window, text=self.first_num, font=(600))
         self.num1.grid(row=row_num, column=0, padx=10, pady=10)
-        self.plus = tk.Label(One_Line.ROOT_WIN, text="+")
+        self.plus = tk.Label(window, text="+")
         self.plus.grid(row=row_num, column=1, padx=10, pady=10)
-        self.num2 = tk.Label(One_Line.ROOT_WIN, text=self.second_num)
+        self.num2 = tk.Label(window, text=self.second_num, font=(600))
         self.num2.grid(row=row_num, column=2, padx=10, pady=10)
-        self.equal = tk.Label(One_Line.ROOT_WIN, text="=")
+        self.equal = tk.Label(window, text="=", font=(600))
         self.equal.grid(row=row_num, column=3, padx=10, pady=10)
-        self.imp_field = tk.Entry(One_Line.ROOT_WIN)
+        self.imp_field = tk.Entry(window, font=(600))
         self.imp_field.grid(row=row_num, column=4)
 
 
 
-    def check(self):
+    def check_sum(self):
         """Executed when check button pressed"""
         num = self.imp_field.get()
         if int(num) == self.first_num+self.second_num:
@@ -36,14 +33,101 @@ class One_Line(object):
         self.imp_field.delete(0, "end")
         return False
 
-all_lines = [("fir_line", 0), ("sec_line",1), ("thrid_line", 2), ("four_l", 3), ("five", 4), ("six", 5), ("sev", 6), ("eight", 7), ("nine", 8), ("ten", 9)]
-for name,num in all_lines:
-    name = One_Line(num)
-    CHECK_BUT = tk.Button(One_Line.ROOT_WIN, text="ПРОВЕРИ", command=name.check)
-    CHECK_BUT.grid(row=num, column=5)
+class OneLineSubstr():
+    """Visualize one line for substract two numbers """
 
-#second_line =One_Line(1)
-#CHECK_BUT = tk.Button(One_Line.ROOT_WIN, text="ПРОВЕРИ", command=second_line.check)
-#CHECK_BUT.grid(row=1, column=5)
+    def __init__(self, window, row_num=0):
+        self.first_num = random.randint(1, 20)
+        self.second_num = random.randint(1, 20)
+        if self.first_num < self.second_num:
+            self.first_num, self.second_num = self.second_num, self.first_num
+        self.num1 = tk.Label(window, text=self.first_num, font=(600))
+        self.num1.grid(row=row_num, column=0, padx=10, pady=10)
+        self.plus = tk.Label(window, text="--", font=("Arial", 13, "bold"))
+        self.plus.grid(row=row_num, column=1, padx=10, pady=10)
+        self.num2 = tk.Label(window, text=self.second_num, font=(600))
+        self.num2.grid(row=row_num, column=2, padx=10, pady=10)
+        self.equal = tk.Label(window, text="=", font=(600))
+        self.equal.grid(row=row_num, column=3, padx=10, pady=10)
+        self.imp_field = tk.Entry(window, font=(600))
+        self.imp_field.grid(row=row_num, column=4)
 
-One_Line.ROOT_WIN.mainloop()
+
+
+    def check_substr(self):
+        """Executed when check button pressed"""
+        num = self.imp_field.get()
+        if int(num) == self.first_num-self.second_num:
+            self.imp_field.configure({"background": "green"})
+            return True
+        self.imp_field.configure({"background": "red"})
+        self.imp_field.delete(0, "end")
+        return False
+
+class OneLineUnknown():
+    """Visualize one line for find unknown number"""
+
+    def __init__(self, window, row_num=0):
+        self.first_num = random.randint(1, 20)
+        self.second_num = random.randint(1, 20)
+        if self.first_num > self.second_num:
+            self.first_num, self.second_num = self.second_num, self.first_num
+        self.num1 = tk.Label(window, text=self.first_num, font=(600))
+        self.num1.grid(row=row_num, column=0, padx=10, pady=10)
+        self.plus = tk.Label(window, text="+", font=("Arial", 13, "bold"))
+        self.plus.grid(row=row_num, column=1, padx=10, pady=10)
+        self.num2 = tk.Label(window, text=self.second_num, font=(600))
+        self.num2.grid(row=row_num, column=4, padx=10, pady=10)
+        self.equal = tk.Label(window, text="=", font=(600))
+        self.equal.grid(row=row_num, column=3, padx=10, pady=10)
+        self.imp_field = tk.Entry(window, font=(600))
+        self.imp_field.grid(row=row_num, column=2)
+
+    def check_unknown(self):
+        """Executed when check button pressed"""
+        num = self.imp_field.get()
+        if int(num) == self.second_num-self.first_num:
+            self.imp_field.configure({"background": "green"})
+            return True
+        self.imp_field.configure({"background": "red"})
+        self.imp_field.delete(0, "end")
+        return False
+
+
+if __name__ == "__main__":
+    ALL_LINES = [("fir_line", 1), ("sec_line", 2), ("thrid_line", 3), ("four_l", 4), ("five", 5), \
+                 ("six", 6), ("sev", 7), ("eight", 8), ("nine", 9), ("ten", 10)]
+    root_win = tk.Tk()
+    root_win.title("Задачи за Калин")
+    root_win.geometry('1800x900')
+
+
+    def summ_fun():
+        """Creating name object for drawing summ examples"""
+        for name, number in ALL_LINES:
+            name = OneLine(root_win, number)
+            check_but = tk.Button(root_win, text="ПРОВЕРИ", font=(600), command=name.check_sum)
+            check_but.grid(row=number, column=5)
+
+    def substr_fun():
+        """Creating name object for drawing substrac examples"""
+        for name, number in ALL_LINES:
+            name = OneLineSubstr(root_win, number)
+            check_but = tk.Button(root_win, text="ПРОВЕРИ", font=(600), command=name.check_substr)
+            check_but.grid(row=number, column=5)
+
+    def unknow_fun():
+        """Creating name object for drawing unknown examples"""
+        for name, number in ALL_LINES:
+            name = OneLineUnknown(root_win, number)
+            check_but = tk.Button(root_win, text="ПРОВЕРИ", font=(600), command=name.check_unknown)
+            check_but.grid(row=number, column=5)
+
+    SUMM_BUT = tk.Button(root_win, text="СЪБИРАНЕ", font=(60), command=summ_fun)
+    SUMM_BUT.grid(row=0, column=1)
+    SUBSTR_BUT = tk.Button(root_win, text="ИЗВАЖДАНЕ", font=(60), command=substr_fun)
+    SUBSTR_BUT.grid(row=0, column=2)
+    UNKNOWN_BUT = tk.Button(root_win, text="НЕИЗВЕСТНО", font=(60), command=unknow_fun)
+    UNKNOWN_BUT.grid(row=0, column=3)
+
+    root_win.mainloop()
